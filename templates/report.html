@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="section-title">Report New Civic Issue</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <label>Issue Title</label>
+    <input type="text" name="title" placeholder="Enter issue title" required>
+
+    <label>Description</label>
+    <textarea name="description" placeholder="Describe the issue..." required></textarea>
+
+    <label>Category</label>
+    <select name="category" required>
+        <option value="">-- Select Category --</option>
+        <option>Pothole</option>
+        <option>Water Leak</option>
+        <option>Broken Streetlight</option>
+        <option>Garbage Dump</option>
+        <option>Road Damage</option>
+    </select>
+
+    <label>Google Maps Location Link</label>
+    <input type="url"
+           name="location_link"
+           placeholder="Paste Google Maps link (https://maps.google.com/...)"
+           required>
+
+    <label>Upload Image</label>
+    <input type="file" name="photo">
+
+    <button type="submit" class="btn">Submit Issue</button>
+
+</form>
+
+{% endblock %}

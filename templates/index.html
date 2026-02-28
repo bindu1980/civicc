@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="section-title">Reported Civic Issues</h2>
+
+{% if issues %}
+
+    {% for issue in issues %}
+    <div class="card">
+
+        <!-- TITLE -->
+        <h3>{{ issue[1] }}</h3>
+
+        <!-- DESCRIPTION -->
+        <p>{{ issue[2] }}</p>
+
+        <!-- CATEGORY -->
+        <p><strong>Category:</strong> {{ issue[3] }}</p>
+
+        <!-- IMAGE DISPLAY -->
+        {% if issue[5] %}
+            <img src="{{ url_for('static', filename='uploads/' + issue[5]) }}"
+                 style="width:250px; margin-top:10px; border-radius:8px;">
+        {% endif %}
+
+        <!-- STATUS BADGE -->
+        {% if issue[6] == "Open" %}
+            <span class="status open">Open</span>
+        {% elif issue[6] == "In Progress" %}
+            <span class="status progress">In Progress</span>
+        {% else %}
+            <span class="status resolved">Resolved</span>
+        {% endif %}
+
+        <!-- UPVOTES -->
+        <p style="margin-top:10px;">
+            <strong>Upvotes:</strong> {{ issue[7] }}
+        </p>
+
+        <!-- GOOGLE MAP LINK -->
+        <a href="{{ issue[4] }}"
+           target="_blank"
+           class="btn btn-success">
+           📍 View Location
+        </a>
+
+        <!-- UPVOTE BUTTON -->
+        <form action="/upvote/{{ issue[0] }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn">
+                👍 Upvote
+            </button>
+        </form>
+
+        <!-- ADMIN STATUS UPDATE -->
+        {% if session.get("role") == "admin" %}
+            <a href="/update_status/{{ issue[0] }}" class="btn btn-secondary">
+                Update Status
+            </a>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+{% else %}
+
+    <div class="empty-box">
+        <h3>No issues reported yet.</h3>
+        <p>Be the first to report a civic issue in your area.</p>
+    </div>
+
+{% endif %}
+
+{% endblock %}

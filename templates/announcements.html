@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Community Announcements</h2>
+
+<form method="POST">
+    <input type="text" name="title" placeholder="Title" required><br>
+    <textarea name="content" placeholder="Content" required></textarea><br>
+    <button type="submit">Post</button>
+</form>
+
+<hr>
+
+{% for a in announcements %}
+<div class="card">
+    <h3>{{ a[1] }}</h3>
+    <p>{{ a[2] }}</p>
+</div>
+{% endfor %}
+
+{% endblock %}
